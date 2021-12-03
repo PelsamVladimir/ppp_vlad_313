@@ -9,7 +9,7 @@ function getRequest(url) {
             return response.json()
         } else {
             return response.json().then(error => {
-                const e = new Error('ЧSomething getting wrong......')
+                const e = new Error('Something went wrong......')
                 e.data = error
                 throw e
             })
@@ -34,7 +34,7 @@ function sendRequest(method, url, body = null) {
             return response.json()
         } else {
             return response.json().then(error => {
-                const e = new Error('Something getting wrong...')
+                const e = new Error('Something went wrong...')
                 e.data = error
                 throw e
             })
@@ -44,7 +44,6 @@ function sendRequest(method, url, body = null) {
 
 function getAllUsers() {
     getRequest(usersURL)
-        // .then(data => console.log(data))
         .then(users => {
             console.log(users)
             for (let user of users) {
@@ -52,11 +51,9 @@ function getAllUsers() {
             }
         })
         .catch(err => alert('Could not get list of users' + err))
-    // alert('@            DONE          @')
 }
 
 function createRow(user) {
-    // console.log('try to create and append rows')
     let userRoles = ''
     switch (user.rolesIndex) {
         case 1 :
@@ -89,7 +86,7 @@ function createRow(user) {
                     data-ed-email="${user.email}"
                     data-ed-password="${user.password}"
                     data-ed-age="${user.age}"
-                    data-ed-roles="${user.rolesIndex}">Изменить
+                    data-ed-roles="${user.rolesIndex}">EDIT
                 </button>
                 <button class="btn btn-danger" data-toggle="modal"
                     id="modal_${user.id}"
@@ -99,7 +96,7 @@ function createRow(user) {
                     data-del-email="${user.email}"
                     data-del-password="${user.password}"
                     data-del-age="${user.age}"
-                    data-del-roles="${user.rolesIndex}">Удалить
+                    data-del-roles="${user.rolesIndex}">DELETE
                 </button>
             </div>
         </td>
@@ -110,12 +107,9 @@ function createRow(user) {
     return usersTableRow
 }
 
-//EDIT MODAL
 $(document).on('click', '.btn-group .btn-info', function (event) {
 
     event.preventDefault();
-
-    //alert('try to open modal')
 
     let button = $(this)
     let id = button.data('edId')
